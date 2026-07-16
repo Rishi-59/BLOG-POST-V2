@@ -48,11 +48,15 @@ class BlogPost(db.Model):
 with app.app_context():
     db.create_all()
 
+# DATABASE FUNCTIONS
+def _get_posts():
+    return db.session.scalars(db.select(BlogPost)).all()
 
 @app.route('/')
 def get_all_posts():
     # TODO: Query the database for all the posts. Convert the data to a python list.
-    posts = []
+    posts = _get_posts()
+    posts = [post for post in posts]
     return render_template("index.html", all_posts=posts)
 
 # TODO: Add a route so that you can click on individual posts.
