@@ -85,22 +85,18 @@ def _delete_post(post_id):
 
 @app.route('/')
 def get_all_posts():
-    # TODO: Query the database for all the posts. Convert the data to a python list.
     posts = _get_posts()
     posts = [post for post in posts]
     return render_template("index.html", all_posts=posts)
 
 
-# TODO: Add a route so that you can click on individual posts.
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
-    # TODO: Retrieve a BlogPost from the database based on the post_id
     requested_post = _get_post(post_id)
     print(requested_post.img_url)
     return render_template("post.html", post=requested_post)
 
 
-# TODO: add_new_post() to create a new blog post
 @app.route('/post/new', methods=['GET', 'POST'])
 def add_new_post():
     form = PostForm()
@@ -120,7 +116,6 @@ def add_new_post():
     return render_template("make-post.html", form=form)
 
 
-# TODO: edit_post() to change an existing blog post
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 def edit_post(post_id):
     requested_post = _get_post(post_id)
@@ -139,7 +134,6 @@ def edit_post(post_id):
     return render_template("make-post.html", post=requested_post, form=form)
 
 
-# TODO: delete_post() to remove a blog post from the database
 @app.route('/post/<int:post_id>/delete', methods=['GET', 'POST'])
 def delete_post(post_id):
     _delete_post(post_id)
