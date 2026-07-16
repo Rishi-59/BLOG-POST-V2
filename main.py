@@ -77,6 +77,11 @@ def _add_post(post):
     db.session.commit()
 
 
+def _delete_post(post_id):
+    post = _get_post(post_id)
+    db.session.delete(post)
+    db.session.commit()
+
 @app.route('/')
 def get_all_posts():
     # TODO: Query the database for all the posts. Convert the data to a python list.
@@ -136,9 +141,7 @@ def edit_post(post_id):
 # TODO: delete_post() to remove a blog post from the database
 @app.route('/post/<int:post_id>/delete', methods=['GET', 'POST'])
 def delete_post(post_id):
-    requested_post = _get_post(post_id)
-    db.session.delete(requested_post)
-    db.session.commit()
+    _delete_post(post_id)
     return redirect(url_for('get_all_posts'))
 
 
